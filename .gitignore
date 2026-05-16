@@ -1,0 +1,10 @@
+node_modules/
+output/
+*.mp4
+public/images/
+_chunk_*
+recording.webm
+preview_*.png
+debug*.png
+.env
+.DS_Store

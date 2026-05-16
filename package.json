@@ -1,0 +1,26 @@
+{
+  "name": "news-remotion",
+  "version": "1.0.0",
+  "description": "Remotion project that composites news B-roll over a continuous avatar track",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render NewsVideo out/video.mp4",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.461",
+    "@remotion/google-fonts": "^4.0.461",
+    "@remotion/lambda": "^4.0.461",
+    "d3-geo": "^3.1.1",
+    "puppeteer": "^25.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^3.8.1",
+    "remotion": "^4.0.461"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.4.0"
+  }
+}
