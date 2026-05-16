@@ -6,8 +6,8 @@
  */
 export const CONFIG = {
   // -------- Channel branding (top-left during image scenes) --------
-  channelName: "Patricia Hayes",
-  channelTagline: "Daily Briefing",
+  channelName: "Parker Sloan",
+  channelTagline: "Your Daily Briefing on World News",
 
   // -------- Background video (image scenes only) --------
   useBackgroundVideo: true,
