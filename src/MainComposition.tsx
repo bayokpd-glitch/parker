@@ -4,6 +4,7 @@ import { ImageOverlay } from "./components/ImageOverlay";
 import { QuoteOverlay } from "./components/QuoteOverlay";
 import { HeadlineOverlay } from "./components/HeadlineOverlay";
 import { StatOverlay } from "./components/StatOverlay";
+import { NumberOverlay } from "./components/NumberOverlay";
 import { Subtitles } from "./components/Subtitles";
 import {
   TransitionWrapper,
@@ -16,9 +17,10 @@ import type {
   HeadlineScene,
   StatScene,
   WhisperWord,
+  NumberOverlay as NumberOverlayData,
 } from "./types";
 
-interface Props {
+export interface MainCompositionProps {
   scenes: Scene[];
   words?: WhisperWord[];
 }
@@ -35,8 +37,14 @@ interface Props {
  * Channel branding lives in src/components/ChannelBanner.tsx — edit
  * CHANNEL_NAME and CHANNEL_TAGLINE there.
  */
-export const MainComposition: React.FC<Props> = ({ scenes, words }) => {
+export const MainComposition: React.FC<MainCompositionProps> = ({ scenes, words }) => {
   const { fps } = useVideoConfig();
+  const numberOverlays = scenes.flatMap((scene, sceneIndex) =>
+    (scene.number_overlays ?? []).map((overlay, overlayIndex) => ({
+      overlay,
+      key: `${sceneIndex}-${overlayIndex}`,
+    })),
+  );
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
@@ -78,6 +86,22 @@ export const MainComposition: React.FC<Props> = ({ scenes, words }) => {
             <TransitionWrapper fadeOutAtEnd={fadeOutAtEnd}>
               {overlay}
             </TransitionWrapper>
+          </Sequence>
+        );
+      })}
+
+      {/* Upper layer: timed number callouts generated from scene.number_overlays */}
+      {numberOverlays.map(({ overlay, key }) => {
+        const startFrame = Math.max(0, Math.round(overlay.start * fps));
+        const endFrame = Math.round(overlay.end * fps);
+        const duration = Math.max(1, endFrame - startFrame);
+
+        return (
+          <Sequence key={`number-${key}`} from={startFrame} durationInFrames={duration}>
+            <NumberOverlay
+              overlay={overlay as NumberOverlayData}
+              durationInFrames={duration}
+            />
           </Sequence>
         );
       })}
