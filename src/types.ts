@@ -4,6 +4,7 @@ export type AvatarScene = {
   start: number;
   end: number;
   aligned?: boolean;
+  number_overlays?: NumberOverlay[];
 };
 
 export type QuoteScene = {
@@ -13,6 +14,7 @@ export type QuoteScene = {
   start: number;
   end: number;
   aligned?: boolean;
+  number_overlays?: NumberOverlay[];
 };
 
 export type ImageScene = {
@@ -23,6 +25,7 @@ export type ImageScene = {
   start: number;
   end: number;
   aligned?: boolean;
+  number_overlays?: NumberOverlay[];
 };
 
 export type HeadlineScene = {
@@ -33,6 +36,7 @@ export type HeadlineScene = {
   start: number;
   end: number;
   aligned?: boolean;
+  number_overlays?: NumberOverlay[];
 };
 
 export type StatScene = {
@@ -43,6 +47,24 @@ export type StatScene = {
   start: number;
   end: number;
   aligned?: boolean;
+  number_overlays?: NumberOverlay[];
+};
+
+export type NumberOverlay = {
+  type: "number";
+  value: string;
+  label: string;
+  start: number;
+  end: number;
+  style?: string;
+  animation?: {
+    in?: string;
+    hold?: string;
+    out?: string;
+    duration?: number;
+  };
+  position?: "left_center" | "right_center" | "center";
+  accent?: string;
 };
 
 export type Scene =
@@ -62,6 +84,11 @@ export type ScenesJSON = {
   video: string;
   duration: number;
   scene_count: number;
+  number_layer?: {
+    enabled: boolean;
+    style?: string;
+    description?: string;
+  };
   scenes: Scene[];
   // Whisper word-level timestamps. Optional for backward compat with older
   // scenes.json files generated before subtitle support landed.
